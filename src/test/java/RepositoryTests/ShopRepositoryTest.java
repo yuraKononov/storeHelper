@@ -1,0 +1,42 @@
+package RepositoryTests;
+
+import com.example.Entities.Shop;
+import com.example.Main;
+import com.example.Repositories.ShopRepositoryInterface;
+import com.example.Services.ShopServiceInterface;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.junit.Assert.*;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        classes = Main.class)
+@AutoConfigureMockMvc
+@TestPropertySource(locations="classpath:application.properties")
+public class ShopRepositoryTest {
+
+    @Autowired
+    ShopRepositoryInterface shopService;
+
+    @Test
+    public void findByName() {
+        assertEquals(new Shop("test", "test_address", ""), shopService.getShopById(1));
+    }
+
+    @Test
+    public void getAllShops() {
+        assertNotNull(shopService.getAllShops());
+    }
+
+    @Test
+    public void getShopById() {
+        assertEquals(new Shop("test", "test_address", ""), shopService.getShopById(1));
+    }
+}
